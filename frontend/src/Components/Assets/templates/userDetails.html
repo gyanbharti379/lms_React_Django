@@ -1,0 +1,23 @@
+{% extends 'backend/base_2.html' %}
+
+{% block content %}
+              
+  <div class="card-post-history">
+    <h1 class="title">User Details</h1>
+
+                <h3>{{f_name}} {{l_name}}</h3>
+                <p>Belongs to - {{cat_name}}</p>
+                <br>
+              
+               <p>Email - {{email}}</p>
+               <p>STD - {{std}} | Phone - {{phone}} 
+               <p>Fax - {{fax}}</p>
+               <p>Mobile No - {{mobile}}</p>
+               <p>Address - {{address}}</p>
+               <p>City - {{city}}</p>
+               <p>State - {{state}}</p>
+               <p>Pincode - {{pincode}}</p>
+               <p>Country - {{country}}</p>
+  </div>
+      
+{% endblock %} 

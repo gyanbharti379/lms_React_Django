@@ -1,0 +1,179 @@
+{% extends 'frontend/base.html' %}
+
+{% block content %}
+<style>
+  *{
+    font-family: 'Sans Serif', sans-serif;
+   
+  } 
+  
+    h1{
+      
+      margin-top: 20px;
+      margin-bottom: 10px;
+      color: rgb(245, 247, 249);
+      margin-left: 50px;
+      margin-right: 50px;
+      font-size: 25px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      
+    }.btn-primary{
+      margin-left: 53%;
+      
+      width: 200px;
+      padding: 10px;
+      background-color: #47495E;
+      color: #fff;
+      border: 2px solid #ccc;
+      border-radius: 10px;  
+      outline: none;
+      cursor: pointer;
+      font-size: 20px;
+      font-weight: bold;
+    }
+    input[type="email"], input[type="text"] {
+        width: 450px;
+        padding: 10px;
+        border: 2px solid #ccc;
+        outline: none;
+        font-size: 16px;
+        margin-left: 50px;
+        margin-right: 50px;
+      }
+      input[type="password"] {
+        position: relative;
+        width: 450px;
+        padding: 10px;
+        border: 2px solid #ccc;
+        outline: none;
+        font-size: 16px;
+        margin-left: 50px;
+        margin-right: 50px;
+      }#imgtogglePassword{
+        width: 20px;
+        height: 20px;
+        position: absolute;
+        background-color: white;
+        right: 25%;
+        top: 68%;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }#userlogo{
+      width: 180px;
+      height: 180px;
+      position: absolute;
+      background-color: white;
+      border-radius: 10px; 
+      right: 40%;
+      top: 22%;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }
+    h6{
+      text-align: right;
+      margin-top: 4%;
+      margin-bottom: 10px;
+      margin-left: 100px;
+      margin-right: 13%;
+      color: white;
+      background-color: #4c7ef5;
+      font-size: 15px;
+      font-weight: bold;
+      transform: translateY(-50%);
+      cursor: pointer;
+    }.card-body{
+      background-color: #4c7ef5;
+      width: 600px;
+    }.card{
+      width: 800px;
+      height: 700px;
+      margin-top: 100px;
+      margin-bottom: 100px;
+      margin-left: 100px;
+      background-color: #acc5f5;
+    }   
+    .card-inside{
+      margin-top: 300px;
+      margin-bottom: 100px;
+      margin-left: 100px;
+      margin-right: 100px;
+      background-color: #82858C;
+    }
+
+      
+
+</style>
+<div class="container">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-12">
+        <div class="card mt-6 mb-6">
+          <div class="card-inside rounded-5">
+           
+              <div class="card-body rounded-5">
+                <img src="/media/images/user.png" alt="togglePassword" id="userlogo">
+                <h1 class="text-center">USER LOGIN</h1>
+                <form id="form" action="{% url 'submitLoginForm' %}" method="post">
+                  {% csrf_token %}
+                    <div class="form-group mb-3">
+                         
+                        <input type="email" class="form-control" id="email" placeholder="email@example.com" name="email" required>  
+                    </div>
+                    <div class="form-group mb-3">
+                         
+                        <input type="password" class="form-control" id="password" placeholder="Password" name="password" required>  
+                        <img src="/media/icons/hide.png" alt="togglePassword" id="imgtogglePassword">
+                        
+                    </div>
+                    <div class="form-group mb-3">
+                     
+                  </div>
+                    <button type="submit" class="btn btn-primary">LOG ME IN</button>
+                    <h6 onclick="handelClick()">Forget Password ? Click here to Reset</h6>  
+                </form>
+                
+              </div>
+            </div>
+              
+          </div>
+      </div>
+  </div>
+</div>  
+
+<script>
+
+  function handelClick(){
+    window.location.href = "{% url 'password_reset' %}";
+  }
+
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('password');
+
+  togglePassword.addEventListener('click', function () {
+      // Toggle between 'password' and 'text' types
+      if (passwordField.type === "password") {
+          passwordField.type = "text";
+          togglePassword.src = "/media/icons/show.png";
+         
+      } else {
+          passwordField.type = "password";
+          togglePassword.src = "/media/icons/hide.png";
+          
+      }
+  });
+
+  document.getElementById('form').addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      event.preventDefault(); // Prevent form submission
+      let elements = Array.from(document.querySelectorAll('input'));
+      let index = elements.indexOf(document.activeElement);
+      if (index < elements.length - 1) {
+          elements[index + 1].focus();
+        }
+    }
+});
+
+</script>
+ 
+
+{% endblock %}

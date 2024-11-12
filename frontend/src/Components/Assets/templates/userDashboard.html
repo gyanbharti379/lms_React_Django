@@ -1,0 +1,44 @@
+{% extends 'backend/base_2.html' %}
+
+{% block content %}
+  
+            <div class="card-post-history">
+              <h1 class="title">Recent History</h1>
+              <table class="table table-striped table-hover">
+                <thead>
+                  <tr>
+                    <th scope="col">S.no</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">About</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                   
+                  {% for incident in incidents %}
+                <tr> 
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ incident.incident_id}}</td>
+                    <td>{{ incident.incident_name}}</td>
+                    <td>{{ incident.status}}</td>
+                    <td> 
+
+                      <form action="{% url 'editIncident' incident.incident_id %}" method="get">
+                        <button type="submit" id="edit-{{ forloop.counter }}" 
+                                class="btn btn-primary w-75" 
+                                {% if incident.status != "Open" and incident.status != "In Progress" %} disabled {% endif %}>
+                            Edit
+                        </button>
+                      </form>
+                    </td>
+                   
+                </tr>
+                {% endfor %}
+
+                </tbody>
+              </table>
+
+            </div>            
+       
+{% endblock %} 
